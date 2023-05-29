@@ -14,29 +14,53 @@ This program allows you to create a similar output using the HL2IO Board.
 Rather than specify the output pins for each band in the client software, you install firmware onto the Pico embedded controller on the HL2Io board.  The output choice is configured in main.c where the transmit_pin array is initialized. It is reproduced below.
 
 hermes_pin transmit_pin = {
+
         {0,0,0,0,0,0,0},  //1 137K
+        
         {0,0,0,0,0,0,0},  //2 500K
+        
         {0,0,0,0,0,0,0},  //3 160m
+        
         {0,0,0,0,0,0,0},  //4 80m
+        
         {0,0,0,0,0,0,0},  //5 60m
+        
         {0,0,0,0,0,0,0},  //6 40m
+        
         {0,0,0,0,0,0,0},  //7 30m
+        
         {0,0,0,0,0,0,0},  //8 20m
+        
         {0,0,0,0,0,0,0},  //9 17m
+        
         {0,0,0,0,0,0,0},  //10 15m
+        
         {0,0,0,0,0,0,0},  //11 12m
+        
         {0,0,0,0,0,0,0},  //12 10m
+        
         {1,0,0,0,0,0,0},  //13 6m
+        
         {0,0,0,0,0,0,0},  //14 4m
+        
         {0,1,0,0,0,0,0},  //15 2m
+        
         {0,0,1,0,0,0,0},  //16 1.25m
+        
         {0,0,0,1,0,0,0},  //17 70cm
+        
         {0,0,0,0,1,0,0},  //18 33cm
+        
         {0,0,0,0,0,1,0},  //19 23cm
+        
         {0,0,0,0,0,0,1},  //20 13mm
+        
         {0,0,0,0,0,0,0},  //21 90mm
+        
         {0,0,0,0,0,0,0},  //22 50mm
+        
         {0,0,0,0,0,0,0}   //23 30mm
+        
 };
 I have set it up so that it used output 1 for the 6m band, output 2 for the 1.25m band, and so on.
 
