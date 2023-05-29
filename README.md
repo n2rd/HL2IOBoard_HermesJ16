@@ -1,3 +1,47 @@
+# This version creates Hermes Board J16 compatible output using the HL2 IO Board designed by N2ADR
+# May 29, 2023
+The J16 IDC connector on the back of the HPSDR and Anan-10 Hermes SDR boards output band data as setup in the client software. These pins provide open-collector output for switching relays and PTT.  The pins of interest are Pin 17 thru 23 on the IDC connector that provide outputs 1 thru 7.
+#### J16 Setup in PowerSDR
+![](./pictures/powersdrj16setup.jpg)	
+
+The appropriate outputs for a band are turned on when the band is selected in the SDR software.  The advantage of this approach is that:
+* You do not need a band-decoder if you use fewer than 7 transverter bands
+* You can still choose your own band code by setting the different outputs for each band
+* If you use a single open collector output for each band, then RF and PTT switching for each transverter is very easy.  Just use the output on as a collective ground for the each of the relay and ptt drivers.  Just keep to current to limits of the driver IC.  The HL2 IO board uses TBD62384AFWG that provides 500mA per output. 
+
+This program allows you to create a similar output using the HL2IO Board.  
+
+Rather than specify the output pins for each band in the client software, you install firmware onto the Pico embedded controller on the HL2Io board.  The output choice is configured in main.c where the transmit_pin array is initialized. It is reproduced below.
+
+hermes_pin transmit_pin = {
+        {0,0,0,0,0,0,0},  //1 137K
+        {0,0,0,0,0,0,0},  //2 500K
+        {0,0,0,0,0,0,0},  //3 160m
+        {0,0,0,0,0,0,0},  //4 80m
+        {0,0,0,0,0,0,0},  //5 60m
+        {0,0,0,0,0,0,0},  //6 40m
+        {0,0,0,0,0,0,0},  //7 30m
+        {0,0,0,0,0,0,0},  //8 20m
+        {0,0,0,0,0,0,0},  //9 17m
+        {0,0,0,0,0,0,0},  //10 15m
+        {0,0,0,0,0,0,0},  //11 12m
+        {0,0,0,0,0,0,0},  //12 10m
+        {1,0,0,0,0,0,0},  //13 6m
+        {0,0,0,0,0,0,0},  //14 4m
+        {0,1,0,0,0,0,0},  //15 2m
+        {0,0,1,0,0,0,0},  //16 1.25m
+        {0,0,0,1,0,0,0},  //17 70cm
+        {0,0,0,0,1,0,0},  //18 33cm
+        {0,0,0,0,0,1,0},  //19 23cm
+        {0,0,0,0,0,0,1},  //20 13mm
+        {0,0,0,0,0,0,0},  //21 90mm
+        {0,0,0,0,0,0,0},  //22 50mm
+        {0,0,0,0,0,0,0}   //23 30mm
+};
+I have set it up so that it used output 1 for the 6m band, output 2 for the 1.25m band, and so on.
+
+Modify the values for the transmit_pin array to suit your application.  
+
 # IO Board for the Hermes Lite 2 by N2ADR
 **May 13, 2023**
 
@@ -32,7 +76,7 @@ The HL2 main board must be modified by adding three extra header pins. In the pi
 header at the back edge of the board. Following that, two holes are skipped, and then a 1x3 header is added. This changes the
 20 pin header to a 25 pin header with two unused pins. The extra pins provide 3.3 volts, ground and VSUP.
 VSUP is the 12 volt HL2 input supply taken after the fuse.
-It is convenient to place the 2x20 pin header across the existing pins and the three added pins to provide
+It is convenient to place the 2x20 pin header across the existing pins and the three added pins to provid
 alignment when soldering. The IO board has a 2x25 pin header. When installed, this connects the HL2 to the filter board as usual.
 ![](./pictures/HL2Mod.jpg)
 
