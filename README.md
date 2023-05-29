@@ -2,7 +2,7 @@
 # May 29, 2023
 The J16 IDC connector on the back of the HPSDR and Anan-10 Hermes SDR boards output band data as setup in the client software. These pins provide open-collector output for switching relays and PTT.  The pins of interest are Pin 17 thru 23 on the IDC connector that provide outputs 1 thru 7.
 #### J16 Setup in PowerSDR
-![](./pictures/powersdrj16setup.jpg)	
+![](./pictures/powersdrJ16setup.jpg)	
 
 The appropriate outputs for a band are turned on when the band is selected in the SDR software.  The advantage of this approach is that:
 * You do not need a band-decoder if you use fewer than 7 transverter bands
